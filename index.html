@@ -27,7 +27,8 @@ body{font-family:var(--font-sans);color:var(--ink);background-color:var(--bg-out
 .side-catch{font-family:var(--font-display);font-size:1.35rem;font-weight:900;line-height:1.4}
 .side-catch mark{background:linear-gradient(transparent 60%,#fde047 60%);padding:0 2px}
 .chips{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
-.chip{border:1.5px solid var(--line);border-radius:10px;padding:6px 4px;text-align:center;background:var(--bg-soft);font-size:.65rem;font-weight:700}
+.chip{border:1.5px solid var(--line);border-radius:10px;padding:6px 4px;text-align:center;background:var(--bg-soft);font-family:inherit;color:var(--ink);font-size:.65rem;font-weight:700;cursor:pointer}
+.chip:hover{background:var(--accent-soft);color:var(--accent)}
 .side-note{font-size:.82rem;color:var(--ink-sub)}
 .side-links{display:flex;flex-direction:column;gap:8px}
 .side-links a{color:var(--accent);font-weight:700;font-size:.85rem;text-decoration:none}
@@ -67,8 +68,30 @@ body{font-family:var(--font-sans);color:var(--ink);background-color:var(--bg-out
 .cat-num{font-family:var(--font-mono);font-size:.7rem;color:var(--accent);font-weight:700}
 footer.lp-footer{padding:24px 20px;text-align:center}
 footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
-.mobile-bar{position:fixed;left:0;right:0;bottom:0;padding:10px 16px;background:#fff;border-top:2px solid var(--line);z-index:40}
+.mobile-bar{position:fixed;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(5,1fr);gap:4px;padding:6px 8px calc(6px + env(safe-area-inset-bottom));background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:2px solid var(--line);z-index:40}
+.mob-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 2px;border:1.5px solid transparent;border-radius:10px;background:transparent;color:var(--ink-sub);font-family:var(--font-sans);font-size:.64rem;font-weight:700;cursor:pointer;line-height:1.2}
+.mob-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mob-btn.active{background:var(--accent-soft);color:var(--accent);border-color:var(--line);box-shadow:var(--shadow-sm)}
 @media(min-width:1024px){.mobile-bar{display:none}}
+.view-hidden{display:none}
+.cat-header{background:linear-gradient(180deg,#eff6ff 0%,#ffffff 100%);padding:28px 20px 24px;border-bottom:2px solid var(--line)}
+.cat-header-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.cat-icon-box{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:2px solid var(--line);border-radius:10px;background:#fff;box-shadow:var(--shadow-sm);color:var(--accent)}
+.cat-icon-box svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cat-back{display:inline-flex;align-items:center;gap:6px;margin-bottom:14px;padding:6px 12px;border:1.5px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);font-size:.78rem;font-weight:700;cursor:pointer;box-shadow:var(--shadow-sm)}
+.post-card{cursor:pointer;transition:transform .1s}
+.post-card:active{transform:translate(2px,2px)}
+.post-empty{text-align:center;padding:32px 18px;background:var(--bg-soft)}
+.post-empty p{margin-top:6px}
+.post-detail-body{margin-top:16px;font-size:.92rem;line-height:1.85;color:var(--ink)}
+.post-detail-body h4{font-family:var(--font-display);font-size:1.1rem;font-weight:900;margin:20px 0 8px}
+.post-detail-body p{margin-bottom:12px;color:var(--ink)}
+.cat-nav-list{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:14px;padding-top:14px;border-top:1.5px dashed var(--bg-grid)}
+.cat-nav-btn{width:100%;display:flex;align-items:center;gap:8px;padding:7px 8px;border:none;border-radius:8px;background:transparent;color:var(--ink-sub);font-family:var(--font-sans);font-size:.82rem;font-weight:700;cursor:pointer;text-align:left}
+.cat-nav-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.cat-nav-btn:hover,.cat-nav-btn.active{background:var(--accent-soft);color:var(--accent)}
+.card-actions{margin-top:10px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn-cat-link{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--accent-soft);color:var(--accent);font-size:.78rem;font-weight:700;cursor:pointer}
 </style>
 </head>
 <body>
@@ -76,7 +99,12 @@ footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
   <aside class="side-left">
     <div class="brand-mark">KUDO LAB <span class="brand-badge">MINI LAB</span></div>
     <p class="side-catch">実務の問いから、<mark>試作と検証</mark>を積み上げる実験室。</p>
-    <div class="chips"><div class="chip">建築法規 × AI</div><div class="chip">法令データ</div><div class="chip">道具づくり</div><div class="chip">調べものメモ</div></div>
+    <div class="chips">
+      <button type="button" class="chip" data-view="law">建築法規 × AI</button>
+      <button type="button" class="chip" data-view="data">法令データ</button>
+      <button type="button" class="chip" data-view="tool">道具づくり</button>
+      <button type="button" class="chip" data-view="note">調べものメモ</button>
+    </div>
     <p class="side-note">建築の実務で働くクドウの個人ラボ。研究の発表も、途中の失敗も、思いつきの試作も、全部ここに置いていきます。カテゴリは増えていく前提です。</p>
     <div class="side-links">
       <a href="https://github.com/ssKudo/kenchiku-law-routing">→ kenchiku-law-routing</a>
@@ -86,9 +114,11 @@ footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
 
   <main class="lp-main" id="top">
     <header class="lp-header">
-      <span class="brand-mark" style="font-size:.95rem">KUDO <span style="color:var(--accent)">LAB</span></span>
-      <a class="mini-cta" href="#projects">公開リポジトリ ↓</a>
+      <a href="#top" class="brand-mark" data-view="home" style="font-size:.95rem;color:inherit;text-decoration:none">KUDO <span style="color:var(--accent)">LAB</span></a>
+      <a class="mini-cta" href="#projects" data-jump="projects">公開リポジトリ ↓</a>
     </header>
+
+    <div id="view-home">
 
     <section class="lp-section hero">
       <span class="hero-kicker">建築実務 × 小型AI ・ クドウの個人研究室</span>
@@ -104,7 +134,7 @@ footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
           <div><span class="term-ok">✓</span> 成功も失敗も、ログは消さない</div>
         </div>
       </div>
-      <a class="btn-primary" href="#categories">カテゴリを見る<small>まずは実験の棚から ・ 直近ログはその下</small></a>
+      <a class="btn-primary" href="#categories">カテゴリを見る<small>まずは実験の棚から ・ 下のボタンで記事へ切替</small></a>
     </section>
 
     <section class="lp-section" id="about">
@@ -124,7 +154,10 @@ footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
         <p>生涯の研究の中心にある棚。法令集をめくる行為そのものを、小さなAIでどう支えるか。</p>
         <p style="margin-top:8px"><span class="tag tag-law">入口ルーティング実験</span> <span class="tag tag-law">参照・委任グラフ</span> <span class="tag tag-law">小型モデルの座席表</span></p>
         <p>代表作：入口ルーティング実験一式（グラフ到達 62.7% / LTR 34/50・平均2.88、DOI付きで公開）</p>
-        <a class="more" href="https://github.com/ssKudo/kenchiku-law-routing">kenchiku-law-routing ↗</a>
+        <div class="card-actions">
+          <button type="button" class="btn-cat-link" data-view="law">記事を見る →</button>
+          <a class="more" href="https://github.com/ssKudo/kenchiku-law-routing">kenchiku-law-routing ↗</a>
+        </div>
       </div>
 
       <div class="card">
@@ -133,7 +166,10 @@ footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
         <p>AIに渡す「辿れる材料」を集める棚。正確に確定したデータじゃなく、辿れることが大事。</p>
         <p style="margin-top:8px"><span class="tag tag-data">告示コーパス</span> <span class="tag tag-data">官報収集</span></p>
         <p>代表作：建築告示コーパス 700件（本文あり696件、毎週自動更新）</p>
-        <a class="more" href="https://github.com/ssKudo/kenchiku-kokuji">kenchiku-kokuji ↗</a>
+        <div class="card-actions">
+          <button type="button" class="btn-cat-link" data-view="data">記事を見る →</button>
+          <a class="more" href="https://github.com/ssKudo/kenchiku-kokuji">kenchiku-kokuji ↗</a>
+        </div>
       </div>
 
       <div class="card">
@@ -142,6 +178,9 @@ footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
         <p>調べものをラクにする道具を自分で作る棚。作って、実機で試して、直す。</p>
         <p style="margin-top:8px"><span class="tag tag-tool">法令集アプリ</span> <span class="tag tag-tool">試作いろいろ</span></p>
         <p>代表作：建築法令集アプリ（Android、参照リンク・委任候補・端末内検索）</p>
+        <div class="card-actions">
+          <button type="button" class="btn-cat-link" data-view="tool">記事を見る →</button>
+        </div>
       </div>
 
       <div class="card">
@@ -150,6 +189,9 @@ footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
         <p>論文、制度、周辺の動きを集めて考える棚。研究の向かう先を考える材料置き場。</p>
         <p style="margin-top:8px"><span class="tag tag-note">論文収集 51件</span> <span class="tag tag-note">調査ノート</span> <span class="tag tag-note">気付きメモ</span></p>
         <p>代表作：RAG理論・論文収集（一次ソース確認済み、事前確率と入口検索の追補まで）</p>
+        <div class="card-actions">
+          <button type="button" class="btn-cat-link" data-view="note">記事を見る →</button>
+        </div>
       </div>
 
       <div class="card" style="background:var(--bg-soft)">
@@ -159,17 +201,8 @@ footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
       </div>
     </section>
 
-    <section class="lp-section" id="fragments">
-      <div class="eyebrow">03 — Experiment Log</div>
-      <h2 class="sec-title">最近の実験ログ</h2>
-      <div class="card"><span class="tag tag-law">法規×AI</span> <span class="date">2026-11-15</span><h3>融合で初めて親を超え、学習で順位が一番良くなった</h3><p>入口ルーティングの実験。重み付き融合 33/50、学習で決める LTR 34/50・平均約2.9（未見年検証）。</p></div>
-      <div class="card"><span class="tag tag-note">調べもの</span> <span class="date">2026-11-15</span><h3>「おなじみ」は検索理論の事前確率だった</h3><p>Kraaijら2002年「入口ページ検索における事前確率の重要性」がズバリの古典。業務ごとの偏りを反映する設計は、系譜に接続できた。</p></div>
-      <div class="card"><span class="tag tag-law">法規×AI</span> <span class="date">2026-11-13</span><h3>LFM3は、この形式では座れなかった</h3><p>小型モデルの載せ替え実験は失敗。失敗もデータとして残す——ボトルネックは大きさより癖かもしれない。</p></div>
-      <div class="card"><span class="tag tag-data">データ</span> <span class="date">2026-11-12</span><h3>告示コーパス、700件に到達</h3><p>官報バックフィル完了。本文あり696件。集める仕組み自体が一つの実験。</p></div>
-    </section>
-
     <section class="lp-section" id="projects">
-      <div class="eyebrow">04 — Public Repositories</div>
+      <div class="eyebrow">03 — Public Repositories</div>
       <h2 class="sec-title">公開リポジトリ（2つ）</h2>
       <p style="font-size:.85rem;color:var(--ink-sub);margin-bottom:16px">いま公開しているのは、この2つだけです。</p>
       <div class="card">
@@ -187,6 +220,25 @@ footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
         <a class="more" href="https://github.com/ssKudo/kenchiku-kokuji">https://github.com/ssKudo/kenchiku-kokuji ↗</a>
       </div>
     </section>
+    </div>
+
+    <section id="view-category" class="view-hidden" aria-live="polite">
+      <div class="cat-header">
+        <button type="button" class="cat-back" data-view="home">← トップへ戻る</button>
+        <div class="cat-header-top">
+          <div class="cat-icon-box" id="cat-icon-box"></div>
+          <div>
+            <div class="eyebrow" id="cat-eyebrow" style="margin-bottom:2px">CATEGORY</div>
+            <h2 class="sec-title" id="cat-title" style="margin-bottom:0">カテゴリ</h2>
+          </div>
+        </div>
+        <p id="cat-desc" style="font-size:.88rem;color:var(--ink-sub)"></p>
+      </div>
+      <div class="lp-section" style="border-bottom:none">
+        <div id="post-list"></div>
+        <div id="post-detail" class="view-hidden"></div>
+      </div>
+    </section>
 
     <footer class="lp-footer"><small>KUDO LAB — ssKudo.github.io / Design: emily_intro_lp.html template</small></footer>
   </main>
@@ -194,17 +246,163 @@ footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
   <nav class="side-right" aria-label="ページ内目次">
     <div class="index-title">● INDEX</div>
     <ul class="index-list" id="index-list">
-      <li><a href="#top" class="active"><span>01</span>トップ</a></li>
-      <li><a href="#about"><span>02</span>このラボについて</a></li>
-      <li><a href="#categories"><span>03</span>カテゴリ</a></li>
-      <li><a href="#fragments"><span>04</span>最近の実験ログ</a></li>
-      <li><a href="#projects"><span>05</span>公開物</a></li>
+      <li><a href="#top" data-jump="top" class="active"><span>01</span>トップ</a></li>
+      <li><a href="#about" data-jump="about"><span>02</span>このラボについて</a></li>
+      <li><a href="#categories" data-jump="categories"><span>03</span>カテゴリ</a></li>
+      <li><a href="#projects" data-jump="projects"><span>04</span>公開物</a></li>
+    </ul>
+    <div class="index-title" style="margin-top:18px;margin-bottom:6px">● CATEGORIES</div>
+    <ul class="cat-nav-list" id="side-cat-nav">
+      <li><button type="button" class="cat-nav-btn active" data-view="home"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg>トップ</button></li>
+      <li><button type="button" class="cat-nav-btn" data-view="law"><svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-2 6h4l-2-6z"/><path d="M19 7l-2 6h4l-2-6z"/><path d="M8 21h8"/></svg>法規×AI</button></li>
+      <li><button type="button" class="cat-nav-btn" data-view="data"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>法令データ</button></li>
+      <li><button type="button" class="cat-nav-btn" data-view="tool"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>道具づくり</button></li>
+      <li><button type="button" class="cat-nav-btn" data-view="note"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h5"/></svg>調べものメモ</button></li>
     </ul>
   </nav>
 </div>
-<div class="mobile-bar"><a href="#categories" class="btn-primary" style="padding:10px 14px;font-size:.9rem">カテゴリを見る</a></div>
+
+<nav class="mobile-bar" aria-label="カテゴリ切り替え">
+  <button type="button" class="mob-btn active" data-view="home" aria-label="トップ">
+    <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg>
+    <span>トップ</span>
+  </button>
+  <button type="button" class="mob-btn" data-view="law" aria-label="法規×AI">
+    <svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-2 6h4l-2-6z"/><path d="M19 7l-2 6h4l-2-6z"/><path d="M8 21h8"/></svg>
+    <span>法規×AI</span>
+  </button>
+  <button type="button" class="mob-btn" data-view="data" aria-label="データ">
+    <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>
+    <span>データ</span>
+  </button>
+  <button type="button" class="mob-btn" data-view="tool" aria-label="道具">
+    <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+    <span>道具</span>
+  </button>
+  <button type="button" class="mob-btn" data-view="note" aria-label="メモ">
+    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h5"/></svg>
+    <span>メモ</span>
+  </button>
+</nav>
+
+<script src="posts.js"></script>
 <script>
-const sections=document.querySelectorAll('.lp-section');const navLinks=document.querySelectorAll('#index-list a');
+const CATEGORIES={
+  law:{eyebrow:'CAT-01 // LAW × AI',title:'建築法規 × 小型AI',desc:'入口ルーティングや参照グラフなど、法令検索×小型AIの実験記事。',tagClass:'tag-law',tagLabel:'法規×AI',icon:'<svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-2 6h4l-2-6z"/><path d="M19 7l-2 6h4l-2-6z"/><path d="M8 21h8"/></svg>'},
+  data:{eyebrow:'CAT-02 // LEGAL DATA',title:'法令データ集め',desc:'告示コーパスや官報収集など、辿れる材料づくりの記録。',tagClass:'tag-data',tagLabel:'データ',icon:'<svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>'},
+  tool:{eyebrow:'CAT-03 // TOOLS',title:'道具づくり',desc:'建築法令集アプリや日常の実務ツール試作の記録。',tagClass:'tag-tool',tagLabel:'道具',icon:'<svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>'},
+  note:{eyebrow:'CAT-04 // NOTES',title:'調べもの・メモ',desc:'論文収集や制度調査、研究の気付きメモ。',tagClass:'tag-note',tagLabel:'メモ',icon:'<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h5"/></svg>'}
+};
+const viewHome=document.getElementById('view-home');
+const viewCat=document.getElementById('view-category');
+const postListEl=document.getElementById('post-list');
+const postDetailEl=document.getElementById('post-detail');
+const sections=document.querySelectorAll('#view-home .lp-section');
+const navLinks=document.querySelectorAll('#index-list a');
+
+function setActiveNav(viewName){
+  document.querySelectorAll('[data-view]').forEach(el=>{
+    if(el.classList.contains('mob-btn')||el.classList.contains('cat-nav-btn')){
+      el.classList.toggle('active',el.dataset.view===viewName);
+    }
+  });
+}
+
+function showPostDetail(post){
+  const cat=CATEGORIES[post.category]||CATEGORIES.note;
+  postListEl.classList.add('view-hidden');
+  postDetailEl.classList.remove('view-hidden');
+  postDetailEl.innerHTML=`
+    <button type="button" class="cat-back" id="back-to-list">← ${cat.title}の一覧へ</button>
+    <article class="card">
+      <span class="tag ${cat.tagClass}">${cat.tagLabel}</span> <span class="date">${post.date||''}</span>
+      <h3 style="font-size:1.2rem;margin-top:6px">${post.title}</h3>
+      <div class="post-detail-body">${post.body||''}</div>
+    </article>`;
+  document.getElementById('back-to-list').addEventListener('click',()=>{
+    location.hash='#cat-'+post.category;
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showView(viewName,scrollTop=true){
+  if(viewName==='home'||!CATEGORIES[viewName]){
+    viewHome.classList.remove('view-hidden');
+    viewCat.classList.add('view-hidden');
+    setActiveNav('home');
+    if(scrollTop)window.scrollTo({top:0,behavior:'smooth'});
+    return;
+  }
+  const cat=CATEGORIES[viewName];
+  viewHome.classList.add('view-hidden');
+  viewCat.classList.remove('view-hidden');
+  document.getElementById('cat-icon-box').innerHTML=cat.icon;
+  document.getElementById('cat-eyebrow').textContent=cat.eyebrow;
+  document.getElementById('cat-title').textContent=cat.title;
+  document.getElementById('cat-desc').textContent=cat.desc;
+  postDetailEl.classList.add('view-hidden');
+  postListEl.classList.remove('view-hidden');
+
+  const posts=(window.KUDO_POSTS||[]).filter(p=>p.category===viewName);
+  if(posts.length===0){
+    postListEl.innerHTML=`
+      <div class="card post-empty">
+        <span class="tag ${cat.tagClass}">${cat.tagLabel}</span>
+        <h3>まだ記事はありません</h3>
+        <p>実験記録やメモは順次追加予定です。</p>
+      </div>`;
+  }else{
+    postListEl.innerHTML=posts.map(p=>`
+      <article class="card post-card" data-post-id="${p.id}">
+        <span class="tag ${cat.tagClass}">${cat.tagLabel}</span> <span class="date">${p.date||''}</span>
+        <h3>${p.title}</h3>
+        <p>${p.summary||''}</p>
+      </article>`).join('');
+    postListEl.querySelectorAll('.post-card').forEach(card=>{
+      card.addEventListener('click',()=>{
+        location.hash='#post-'+card.dataset.postId;
+      });
+    });
+  }
+  setActiveNav(viewName);
+  if(scrollTop)window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function handleHash(){
+  const h=location.hash||'';
+  if(h.startsWith('#post-')){
+    const id=h.slice(6);
+    const post=(window.KUDO_POSTS||[]).find(p=>p.id===id);
+    if(post){showView(post.category,false);showPostDetail(post);return;}
+  }
+  if(h.startsWith('#cat-')){
+    showView(h.slice(5));return;
+  }
+  if(h&&document.getElementById(h.slice(1))){
+    showView('home',false);
+    document.getElementById(h.slice(1)).scrollIntoView({behavior:'smooth'});
+    return;
+  }
+  showView('home',false);
+}
+
+document.querySelectorAll('[data-view]').forEach(btn=>{
+  btn.addEventListener('click',e=>{
+    e.preventDefault();
+    const v=btn.dataset.view;
+    location.hash=v==='home'?'#top':'#cat-'+v;
+  });
+});
+document.querySelectorAll('[data-jump]').forEach(link=>{
+  link.addEventListener('click',e=>{
+    e.preventDefault();
+    location.hash='#'+link.dataset.jump;
+  });
+});
+
+window.addEventListener('hashchange',handleHash);
+handleHash();
+
 const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){navLinks.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-30% 0px -55% 0px'});
 sections.forEach(s=>{if(s.id)obs.observe(s)});
 </script>
