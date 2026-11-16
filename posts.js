@@ -57,7 +57,7 @@ window.KUDO_POSTS = [
   },
   {
     id: 'ai-gyomu-kansa-system',
-    category: 'note',
+    category: 'tool',
     date: '2026-11-16',
     title: '日々の業務メール・DB・日誌をAIで毎朝「統括監査」する仕組みと運用ノウハウ',
     summary: '会社PCでの実務の話。メール・基幹DB・Obsidianの日誌をAIエージェントに毎朝照合させ、その日のToDoと保留だけを日誌へ書き戻す運用と、定着させるための7つのノウハウ。',
