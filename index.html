@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KUDO LAB // クドウのミニラボ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+JP:wght@400;500;700;900&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg-outer:#f1f5f9; --bg-grid:#e2e8f0; --bg-main:#ffffff; --bg-soft:#f8fafc;
+  --ink:#0f172a; --ink-sub:#475569; --line:#0f172a;
+  --accent:#2563eb; --accent-soft:#eff6ff; --accent-2:#f97316; --accent-3:#10b981; --accent-4:#8b5cf6;
+  --shadow-hard:4px 4px 0px #0f172a; --shadow-sm:2px 2px 0px #0f172a;
+  --font-sans:'Noto Sans JP',sans-serif; --font-display:'Zen Kaku Gothic New','Noto Sans JP',sans-serif; --font-mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);color:var(--ink);background-color:var(--bg-outer);background-image:linear-gradient(to right,var(--bg-grid) 1px,transparent 1px),linear-gradient(to bottom,var(--bg-grid) 1px,transparent 1px);background-size:28px 28px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.layout-shell{display:grid;grid-template-columns:1fr;justify-content:center;max-width:1160px;margin:0 auto;padding:0 16px;gap:32px}
+@media(min-width:1024px){.layout-shell{grid-template-columns:260px 480px 220px;align-items:start;padding:24px 20px 64px}}
+.side-left{display:none}
+@media(min-width:1024px){.side-left{display:flex;flex-direction:column;gap:20px;position:sticky;top:32px;background:var(--bg-main);border:2px solid var(--line);border-radius:16px;padding:24px 20px;box-shadow:var(--shadow-hard)}}
+.brand-mark{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-weight:700;font-size:1.15rem;letter-spacing:.04em}
+.brand-badge{background:var(--ink);color:#fff;font-size:.65rem;padding:2px 6px;border-radius:4px}
+.side-catch{font-family:var(--font-display);font-size:1.35rem;font-weight:900;line-height:1.4}
+.side-catch mark{background:linear-gradient(transparent 60%,#fde047 60%);padding:0 2px}
+.chips{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+.chip{border:1.5px solid var(--line);border-radius:10px;padding:6px 4px;text-align:center;background:var(--bg-soft);font-size:.65rem;font-weight:700}
+.side-note{font-size:.82rem;color:var(--ink-sub)}
+.side-links{display:flex;flex-direction:column;gap:8px}
+.side-links a{color:var(--accent);font-weight:700;font-size:.85rem;text-decoration:none}
+.side-right{display:none}
+@media(min-width:1024px){.side-right{display:block;position:sticky;top:32px;background:var(--bg-main);border:2px solid var(--line);border-radius:16px;padding:20px 18px;box-shadow:var(--shadow-hard)}}
+.index-title{font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.12em;color:var(--ink-sub);margin-bottom:12px}
+.index-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.index-list a{display:flex;gap:8px;text-decoration:none;color:var(--ink-sub);font-size:.82rem;font-weight:700;padding:6px 8px;border-radius:8px}
+.index-list a span{font-family:var(--font-mono);font-size:.72rem;opacity:.7}
+.index-list a.active,.index-list a:hover{background:var(--accent-soft);color:var(--accent)}
+.lp-main{width:100%;max-width:480px;margin:0 auto;background:var(--bg-main);border-left:2px solid var(--line);border-right:2px solid var(--line);min-height:100vh;padding-bottom:84px}
+@media(min-width:1024px){.lp-main{border:2px solid var(--line);border-radius:24px;box-shadow:8px 8px 0px var(--line);overflow:hidden;padding-bottom:32px}}
+.lp-header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:2px solid var(--line)}
+.mini-cta{display:inline-flex;background:var(--accent);color:#fff;text-decoration:none;font-size:.78rem;font-weight:700;padding:7px 12px;border-radius:999px;border:1.5px solid var(--line);box-shadow:var(--shadow-sm)}
+.lp-section{padding:40px 20px;border-bottom:2px solid var(--line)}
+.eyebrow{font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.14em;color:var(--accent);margin-bottom:6px;text-transform:uppercase}
+.sec-title{font-family:var(--font-display);font-size:1.6rem;font-weight:900;line-height:1.35;margin-bottom:16px}
+.hero{background:linear-gradient(180deg,#eff6ff 0%,#ffffff 68%);text-align:center;padding-top:32px}
+.hero-kicker{display:inline-block;font-size:.8rem;font-weight:700;background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:4px 14px;margin-bottom:14px;box-shadow:var(--shadow-sm)}
+.hero-title{font-family:var(--font-display);font-size:1.95rem;font-weight:900;line-height:1.3;margin-bottom:18px}
+.hero-title .hl{color:var(--accent);text-decoration:underline;text-decoration-thickness:4px;text-underline-offset:4px}
+.term-card{background:#0f172a;color:#f8fafc;border:2px solid var(--line);border-radius:14px;text-align:left;overflow:hidden;box-shadow:var(--shadow-hard);margin:18px 0}
+.term-bar{display:flex;justify-content:space-between;padding:8px 12px;background:#1e293b;border-bottom:1px solid #334155;font-family:var(--font-mono);font-size:.72rem;color:#94a3b8}
+.term-body{padding:14px 16px;font-family:var(--font-mono);font-size:.78rem;line-height:1.65}
+.term-prompt{color:#38bdf8}.term-ok{color:#4ade80}.term-warn{color:#fbbf24}
+.btn-primary{display:flex;flex-direction:column;align-items:center;width:100%;padding:14px 20px;background:var(--accent);color:#fff;text-decoration:none;border:2px solid var(--line);border-radius:14px;font-weight:900;font-size:1rem;box-shadow:var(--shadow-hard)}
+.btn-primary small{font-size:.72rem;font-weight:700;opacity:.92}
+.card{border:2px solid var(--line);border-radius:16px;padding:18px 16px;background:#fff;box-shadow:var(--shadow-hard);margin-bottom:16px}
+.card h3{font-size:1rem;font-weight:900;margin-bottom:6px}
+.card p{font-size:.88rem;color:var(--ink-sub)}
+.card a.more{color:var(--accent);font-weight:700;font-size:.85rem;text-decoration:none}
+.tag{display:inline-block;font-family:var(--font-mono);font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:999px;border:1.5px solid var(--line);margin-bottom:8px}
+.tag-law{background:#eff6ff}.tag-data{background:#ecfdf5}.tag-tool{background:#fff7ed}.tag-note{background:#f5f3ff}.tag-etc{background:#f8fafc}
+.date{font-family:var(--font-mono);font-size:.7rem;color:var(--ink-sub)}
+.cat-num{font-family:var(--font-mono);font-size:.7rem;color:var(--accent);font-weight:700}
+footer.lp-footer{padding:24px 20px;text-align:center}
+footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
+.mobile-bar{position:fixed;left:0;right:0;bottom:0;padding:10px 16px;background:#fff;border-top:2px solid var(--line);z-index:40}
+@media(min-width:1024px){.mobile-bar{display:none}}
+</style>
+</head>
+<body>
+<div class="layout-shell">
+  <aside class="side-left">
+    <div class="brand-mark">KUDO LAB <span class="brand-badge">MINI LAB</span></div>
+    <p class="side-catch">作って、試して、<mark>カケラまで残す</mark>小さな実験室。</p>
+    <div class="chips"><div class="chip">建築法規 × AI</div><div class="chip">法令データ</div><div class="chip">道具づくり</div><div class="chip">調べものメモ</div></div>
+    <p class="side-note">建築の実務で働くクドウの個人ラボ。研究の発表も、途中の失敗も、思いつきの試作も、全部ここに置いていきます。カテゴリは増えていく前提です。</p>
+    <div class="side-links">
+      <a href="https://github.com/ssKudo/kenchiku-law-routing">→ kenchiku-law-routing</a>
+      <a href="https://github.com/ssKudo/kenchiku-kokuji">→ kenchiku-kokuji</a>
+    </div>
+  </aside>
+
+  <main class="lp-main" id="top">
+    <header class="lp-header">
+      <span class="brand-mark" style="font-size:.95rem">KUDO <span style="color:var(--accent)">LAB</span></span>
+      <a class="mini-cta" href="#projects">公開リポジトリ ↓</a>
+    </header>
+
+    <section class="lp-section hero">
+      <span class="hero-kicker">クドウのミニラボ ・ 個人研究と試作の置き場</span>
+      <h1 class="hero-title">作って、試して、<br /><span class="hl">カケラまで</span><br />残しておく。</h1>
+      <p style="font-size:.9rem;color:var(--ink-sub)">ここは一つの研究のサイトじゃない。俺の実験室そのもの。発表できる形になったものも、途中で壊れたものも、試行錯誤のカケラとして並べていきます。</p>
+      <div class="term-card">
+        <div class="term-bar"><span>lab — recent.log</span><span>● ● ●</span></div>
+        <div class="term-body">
+          <div><span class="term-prompt">2026-11-15</span> [法規×AI] 融合と学習で入口の順位を測り直した</div>
+          <div><span class="term-prompt">2026-11-15</span> [調べもの] RAG理論の論文を51件集めた</div>
+          <div><span class="term-prompt">2026-11-12</span> [データ] 告示コーパスが700件になった</div>
+          <div><span class="term-prompt">2026-11-03</span> [道具] 法令集アプリを1日で6版更新した</div>
+          <div><span class="term-ok">✓</span> 成功も失敗も、ログは消さない</div>
+        </div>
+      </div>
+      <a class="btn-primary" href="#categories">カテゴリを見る<small>まずは棚から ・ カケラはその下</small></a>
+    </section>
+
+    <section class="lp-section" id="about">
+      <div class="eyebrow">01 — About this lab</div>
+      <h2 class="sec-title">このラボについて</h2>
+      <div class="card"><h3>問題から始める、が共通の姿勢</h3><p>技術ありきじゃなく「何をラクしたいか」から始める。それだけが共通で、あとはカテゴリごとにバラバラでいい。建築法規×AIも、その中の一つです。</p></div>
+      <div class="card"><h3>失敗もデータとして残す</h3><p>うまくいかなかった実験は消さない。何を試して、どこで壊れて、何が分かったか——そのカケラが次の実験の材料になるから。</p></div>
+    </section>
+
+    <section class="lp-section" id="categories">
+      <div class="eyebrow">02 — Categories</div>
+      <h2 class="sec-title">カテゴリ（棚）</h2>
+
+      <div class="card">
+        <div class="cat-num">CAT-01</div>
+        <h3>建築法規 × 小型AI</h3>
+        <p>生涯の研究の中心にある棚。法令集をめくる行為そのものを、小さなAIでどう支えるか。</p>
+        <p style="margin-top:8px"><span class="tag tag-law">入口ルーティング実験</span> <span class="tag tag-law">参照・委任グラフ</span> <span class="tag tag-law">小型モデルの座席表</span></p>
+        <p>代表作：入口ルーティング実験一式（グラフ到達 62.7% / LTR 34/50・平均2.88、DOI付きで公開）</p>
+        <a class="more" href="https://github.com/ssKudo/kenchiku-law-routing">kenchiku-law-routing ↗</a>
+      </div>
+
+      <div class="card">
+        <div class="cat-num">CAT-02</div>
+        <h3>法令データ集め</h3>
+        <p>AIに渡す「辿れる材料」を集める棚。正確に確定したデータじゃなく、辿れることが大事。</p>
+        <p style="margin-top:8px"><span class="tag tag-data">告示コーパス</span> <span class="tag tag-data">官報収集</span></p>
+        <p>代表作：建築告示コーパス 700件（本文あり696件、毎週自動更新）</p>
+        <a class="more" href="https://github.com/ssKudo/kenchiku-kokuji">kenchiku-kokuji ↗</a>
+      </div>
+
+      <div class="card">
+        <div class="cat-num">CAT-03</div>
+        <h3>道具づくり</h3>
+        <p>調べものをラクにする道具を自分で作る棚。作って、実機で試して、直す。</p>
+        <p style="margin-top:8px"><span class="tag tag-tool">法令集アプリ</span> <span class="tag tag-tool">試作いろいろ</span></p>
+        <p>代表作：建築法令集アプリ（Android、参照リンク・委任候補・端末内検索）</p>
+      </div>
+
+      <div class="card">
+        <div class="cat-num">CAT-04</div>
+        <h3>調べもの・メモ</h3>
+        <p>論文、制度、周辺の動きを集めて考える棚。研究の向かう先を考える材料置き場。</p>
+        <p style="margin-top:8px"><span class="tag tag-note">論文収集 51件</span> <span class="tag tag-note">調査ノート</span> <span class="tag tag-note">気付きメモ</span></p>
+        <p>代表作：RAG理論・論文収集（一次ソース確認済み、事前確率と入口検索の追補まで）</p>
+      </div>
+
+      <div class="card" style="background:var(--bg-soft)">
+        <div class="cat-num">CAT-05 —</div>
+        <h3>これからの棚</h3>
+        <p>まだ空っぽ。新しいことを始めたら、ここに棚が増えます。それがこのラボの形。</p>
+      </div>
+    </section>
+
+    <section class="lp-section" id="fragments">
+      <div class="eyebrow">03 — Fragments</div>
+      <h2 class="sec-title">最近のカケラ</h2>
+      <div class="card"><span class="tag tag-law">法規×AI</span> <span class="date">2026-11-15</span><h3>融合で初めて親を超え、学習で順位が一番良くなった</h3><p>入口ルーティングの実験。重み付き融合 33/50、学習で決める LTR 34/50・平均約2.9（未見年検証）。</p></div>
+      <div class="card"><span class="tag tag-note">調べもの</span> <span class="date">2026-11-15</span><h3>「おなじみ」は検索理論の事前確率だった</h3><p>Kraaijら2002年「入口ページ検索における事前確率の重要性」がズバリの古典。業務ごとの偏りを反映する設計は、系譜に接続できた。</p></div>
+      <div class="card"><span class="tag tag-law">法規×AI</span> <span class="date">2026-11-13</span><h3>LFM3は、この形式では座れなかった</h3><p>小型モデルの載せ替え実験は失敗。失敗もデータとして残す——ボトルネックは大きさより癖かもしれない。</p></div>
+      <div class="card"><span class="tag tag-data">データ</span> <span class="date">2026-11-12</span><h3>告示コーパス、700件に到達</h3><p>官報バックフィル完了。本文あり696件。集める仕組み自体が一つの実験。</p></div>
+    </section>
+
+    <section class="lp-section" id="projects">
+      <div class="eyebrow">04 — Public Repositories</div>
+      <h2 class="sec-title">公開リポジトリ（2つ）</h2>
+      <p style="font-size:.85rem;color:var(--ink-sub);margin-bottom:16px">いま公開しているのは、この2つだけです。</p>
+      <div class="card">
+        <span class="tag tag-law">法規×AI</span>
+        <h3>kenchiku-law-routing</h3>
+        <p>建築系の条文検索に特化したRAG、入口ルーティング実験一式。レポート・実験28件・データを公開しています。</p>
+        <p style="margin-top:8px">Zenodo DOI: <a href="https://doi.org/10.5281/zenodo.24242198" style="color:var(--accent);font-weight:700">10.5281/zenodo.24242198</a><br />ライセンス：コード MIT ／ 文書・データ CC BY 4.0</p>
+        <a class="more" href="https://github.com/ssKudo/kenchiku-law-routing">https://github.com/ssKudo/kenchiku-law-routing ↗</a>
+      </div>
+      <div class="card">
+        <span class="tag tag-data">法令データ</span>
+        <h3>kenchiku-kokuji</h3>
+        <p>官報から建築関係の告示を集めるコーパス。700件（本文あり696件）を収録し、GitHub Actionsで毎週自動更新しています。</p>
+        <p style="margin-top:8px">ライセンス：MIT</p>
+        <a class="more" href="https://github.com/ssKudo/kenchiku-kokuji">https://github.com/ssKudo/kenchiku-kokuji ↗</a>
+      </div>
+    </section>
+
+    <footer class="lp-footer"><small>KUDO LAB — ssKudo.github.io / Design: emily_intro_lp.html template</small></footer>
+  </main>
+
+  <nav class="side-right" aria-label="ページ内目次">
+    <div class="index-title">● INDEX</div>
+    <ul class="index-list" id="index-list">
+      <li><a href="#top" class="active"><span>01</span>トップ</a></li>
+      <li><a href="#about"><span>02</span>このラボについて</a></li>
+      <li><a href="#categories"><span>03</span>カテゴリ</a></li>
+      <li><a href="#fragments"><span>04</span>最近のカケラ</a></li>
+      <li><a href="#projects"><span>05</span>公開物</a></li>
+    </ul>
+  </nav>
+</div>
+<div class="mobile-bar"><a href="#categories" class="btn-primary" style="padding:10px 14px;font-size:.9rem">カテゴリを見る</a></div>
+<script>
+const sections=document.querySelectorAll('.lp-section');const navLinks=document.querySelectorAll('#index-list a');
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){navLinks.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-30% 0px -55% 0px'});
+sections.forEach(s=>{if(s.id)obs.observe(s)});
+</script>
+</body>
+</html>
