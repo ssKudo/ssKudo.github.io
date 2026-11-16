@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>KUDO LAB // クドウのミニラボ</title>
+<title>KUDO LAB — 建築実務と小型AIの実験室</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+JP:wght@400;500;700;900&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap" rel="stylesheet" />
@@ -45,7 +45,9 @@ body{font-family:var(--font-sans);color:var(--ink);background-color:var(--bg-out
 .lp-section{padding:40px 20px;border-bottom:2px solid var(--line)}
 .eyebrow{font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.14em;color:var(--accent);margin-bottom:6px;text-transform:uppercase}
 .sec-title{font-family:var(--font-display);font-size:1.6rem;font-weight:900;line-height:1.35;margin-bottom:16px}
-.hero{background:linear-gradient(180deg,#eff6ff 0%,#ffffff 68%);text-align:center;padding-top:32px}
+.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#eff6ff 0%,#ffffff 78%);text-align:center;padding-top:32px}
+.hero::before{content:'';position:absolute;inset:0;background:url('assets/hero-lab.jpg') center 28%/cover no-repeat;opacity:.18;pointer-events:none;mask-image:linear-gradient(180deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.6) 65%,transparent 100%);-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.6) 65%,transparent 100%)}
+.hero>*{position:relative;z-index:1}
 .hero-kicker{display:inline-block;font-size:.8rem;font-weight:700;background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:4px 14px;margin-bottom:14px;box-shadow:var(--shadow-sm)}
 .hero-title{font-family:var(--font-display);font-size:1.95rem;font-weight:900;line-height:1.3;margin-bottom:18px}
 .hero-title .hl{color:var(--accent);text-decoration:underline;text-decoration-thickness:4px;text-underline-offset:4px}
@@ -73,7 +75,7 @@ footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
 <div class="layout-shell">
   <aside class="side-left">
     <div class="brand-mark">KUDO LAB <span class="brand-badge">MINI LAB</span></div>
-    <p class="side-catch">作って、試して、<mark>カケラまで残す</mark>小さな実験室。</p>
+    <p class="side-catch">実務の問いから、<mark>試作と検証</mark>を積み上げる実験室。</p>
     <div class="chips"><div class="chip">建築法規 × AI</div><div class="chip">法令データ</div><div class="chip">道具づくり</div><div class="chip">調べものメモ</div></div>
     <p class="side-note">建築の実務で働くクドウの個人ラボ。研究の発表も、途中の失敗も、思いつきの試作も、全部ここに置いていきます。カテゴリは増えていく前提です。</p>
     <div class="side-links">
@@ -89,9 +91,9 @@ footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
     </header>
 
     <section class="lp-section hero">
-      <span class="hero-kicker">クドウのミニラボ ・ 個人研究と試作の置き場</span>
-      <h1 class="hero-title">作って、試して、<br /><span class="hl">カケラまで</span><br />残しておく。</h1>
-      <p style="font-size:.9rem;color:var(--ink-sub)">ここは一つの研究のサイトじゃない。俺の実験室そのもの。発表できる形になったものも、途中で壊れたものも、試行錯誤のカケラとして並べていきます。</p>
+      <span class="hero-kicker">建築実務 × 小型AI ・ クドウの個人研究室</span>
+      <h1 class="hero-title">実務の問いから、<br /><span class="hl">試作と検証</span>を<br />積み上げる。</h1>
+      <p style="font-size:.9rem;color:var(--ink-sub)">ここは完成品だけを並べるサイトじゃない。建築実務の「困った」から始めた実験と、途中の検証記録までそのまま置いていく、俺の実験室です。</p>
       <div class="term-card">
         <div class="term-bar"><span>lab — recent.log</span><span>● ● ●</span></div>
         <div class="term-body">
@@ -102,14 +104,14 @@ footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
           <div><span class="term-ok">✓</span> 成功も失敗も、ログは消さない</div>
         </div>
       </div>
-      <a class="btn-primary" href="#categories">カテゴリを見る<small>まずは棚から ・ カケラはその下</small></a>
+      <a class="btn-primary" href="#categories">カテゴリを見る<small>まずは実験の棚から ・ 直近ログはその下</small></a>
     </section>
 
     <section class="lp-section" id="about">
       <div class="eyebrow">01 — About this lab</div>
       <h2 class="sec-title">このラボについて</h2>
       <div class="card"><h3>問題から始める、が共通の姿勢</h3><p>技術ありきじゃなく「何をラクしたいか」から始める。それだけが共通で、あとはカテゴリごとにバラバラでいい。建築法規×AIも、その中の一つです。</p></div>
-      <div class="card"><h3>失敗もデータとして残す</h3><p>うまくいかなかった実験は消さない。何を試して、どこで壊れて、何が分かったか——そのカケラが次の実験の材料になるから。</p></div>
+      <div class="card"><h3>失敗もデータとして残す</h3><p>うまくいかなかった実験は消さない。何を試して、どこで壊れて、何が分かったか——その記録が次の実験の材料になるから。</p></div>
     </section>
 
     <section class="lp-section" id="categories">
@@ -158,8 +160,8 @@ footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
     </section>
 
     <section class="lp-section" id="fragments">
-      <div class="eyebrow">03 — Fragments</div>
-      <h2 class="sec-title">最近のカケラ</h2>
+      <div class="eyebrow">03 — Experiment Log</div>
+      <h2 class="sec-title">最近の実験ログ</h2>
       <div class="card"><span class="tag tag-law">法規×AI</span> <span class="date">2026-11-15</span><h3>融合で初めて親を超え、学習で順位が一番良くなった</h3><p>入口ルーティングの実験。重み付き融合 33/50、学習で決める LTR 34/50・平均約2.9（未見年検証）。</p></div>
       <div class="card"><span class="tag tag-note">調べもの</span> <span class="date">2026-11-15</span><h3>「おなじみ」は検索理論の事前確率だった</h3><p>Kraaijら2002年「入口ページ検索における事前確率の重要性」がズバリの古典。業務ごとの偏りを反映する設計は、系譜に接続できた。</p></div>
       <div class="card"><span class="tag tag-law">法規×AI</span> <span class="date">2026-11-13</span><h3>LFM3は、この形式では座れなかった</h3><p>小型モデルの載せ替え実験は失敗。失敗もデータとして残す——ボトルネックは大きさより癖かもしれない。</p></div>
@@ -195,7 +197,7 @@ footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
       <li><a href="#top" class="active"><span>01</span>トップ</a></li>
       <li><a href="#about"><span>02</span>このラボについて</a></li>
       <li><a href="#categories"><span>03</span>カテゴリ</a></li>
-      <li><a href="#fragments"><span>04</span>最近のカケラ</a></li>
+      <li><a href="#fragments"><span>04</span>最近の実験ログ</a></li>
       <li><a href="#projects"><span>05</span>公開物</a></li>
     </ul>
   </nav>
