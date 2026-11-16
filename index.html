@@ -46,11 +46,14 @@ body{font-family:var(--font-sans);color:var(--ink);background-color:var(--bg-out
 .lp-section{padding:40px 20px;border-bottom:2px solid var(--line)}
 .eyebrow{font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.14em;color:var(--accent);margin-bottom:6px;text-transform:uppercase}
 .sec-title{font-family:var(--font-display);font-size:1.6rem;font-weight:900;line-height:1.35;margin-bottom:16px}
-.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#eff6ff 0%,#ffffff 78%);text-align:center;padding-top:32px}
-.hero::before{content:'';position:absolute;inset:0;background:url('assets/hero-lab.jpg') center 28%/cover no-repeat;opacity:.18;pointer-events:none;mask-image:linear-gradient(180deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.6) 65%,transparent 100%);-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.6) 65%,transparent 100%)}
-.hero>*{position:relative;z-index:1}
-.hero-kicker{display:inline-block;font-size:.8rem;font-weight:700;background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:4px 14px;margin-bottom:14px;box-shadow:var(--shadow-sm)}
-.hero-title{font-family:var(--font-display);font-size:1.95rem;font-weight:900;line-height:1.3;margin-bottom:18px}
+.top-banner{position:relative;width:100%;min-height:220px;display:flex;align-items:center;justify-content:center;text-align:center;padding:36px 20px;background:url('assets/hero-lab.jpg') center center/cover no-repeat;border-bottom:2px solid var(--line);overflow:hidden}
+.top-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(239,246,255,.15) 0%,rgba(255,255,255,.28) 100%)}
+.top-banner-inner{position:relative;z-index:1;max-width:720px;padding:18px 24px;background:rgba(255,255,255,.86);border:2px solid var(--line);border-radius:16px;box-shadow:var(--shadow-hard);backdrop-filter:blur(4px)}
+.top-banner-title{font-family:var(--font-display);font-size:clamp(1.65rem,4.2vw,2.5rem);font-weight:900;line-height:1.2;color:var(--ink);letter-spacing:.02em}
+.top-banner-sub{margin-top:8px;font-family:var(--font-display);font-size:clamp(.95rem,2vw,1.2rem);font-weight:900;color:var(--accent);letter-spacing:.06em}
+@media(min-width:1024px){.top-banner{max-width:1024px;min-height:300px;margin:24px auto 0;border:2px solid var(--line);border-radius:24px;box-shadow:8px 8px 0px var(--line)}}
+.hero{background:linear-gradient(180deg,#eff6ff 0%,#ffffff 78%);text-align:center;padding-top:32px}
+.hero-title{font-family:var(--font-display);font-size:1.85rem;font-weight:900;line-height:1.3;margin-bottom:16px}
 .hero-title .hl{color:var(--accent);text-decoration:underline;text-decoration-thickness:4px;text-underline-offset:4px}
 .term-card{background:#0f172a;color:#f8fafc;border:2px solid var(--line);border-radius:14px;text-align:left;overflow:hidden;box-shadow:var(--shadow-hard);margin:18px 0}
 .term-bar{display:flex;justify-content:space-between;padding:8px 12px;background:#1e293b;border-bottom:1px solid #334155;font-family:var(--font-mono);font-size:.72rem;color:#94a3b8}
@@ -95,6 +98,12 @@ footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
 </style>
 </head>
 <body>
+<header class="top-banner" id="top-banner">
+  <div class="top-banner-inner">
+    <h1 class="top-banner-title">Kudoの個人研究室</h1>
+    <p class="top-banner-sub">～建築実務×小型AI～</p>
+  </div>
+</header>
 <div class="layout-shell">
   <aside class="side-left">
     <div class="brand-mark">KUDO LAB <span class="brand-badge">MINI LAB</span></div>
@@ -121,8 +130,7 @@ footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
     <div id="view-home">
 
     <section class="lp-section hero">
-      <span class="hero-kicker">建築実務 × 小型AI ・ クドウの個人研究室</span>
-      <h1 class="hero-title">実務の問いから、<br /><span class="hl">試作と検証</span>を<br />積み上げる。</h1>
+      <h2 class="hero-title">実務の問いから、<br /><span class="hl">試作と検証</span>を<br />積み上げる。</h2>
       <p style="font-size:.9rem;color:var(--ink-sub)">ここは完成品だけを並べるサイトじゃない。建築実務の「困った」から始めた実験と、途中の検証記録までそのまま置いていく、俺の実験室です。</p>
       <div class="term-card">
         <div class="term-bar"><span>lab — recent.log</span><span>● ● ●</span></div>
@@ -293,6 +301,7 @@ const CATEGORIES={
   tool:{eyebrow:'CAT-03 // TOOLS',title:'道具づくり',desc:'建築法令集アプリや日常の実務ツール試作の記録。',tagClass:'tag-tool',tagLabel:'道具',icon:'<svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>'},
   note:{eyebrow:'CAT-04 // NOTES',title:'調べもの・メモ',desc:'論文収集や制度調査、研究の気付きメモ。',tagClass:'tag-note',tagLabel:'メモ',icon:'<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h5"/></svg>'}
 };
+const topBanner=document.getElementById('top-banner');
 const viewHome=document.getElementById('view-home');
 const viewCat=document.getElementById('view-category');
 const postListEl=document.getElementById('post-list');
@@ -327,6 +336,7 @@ function showPostDetail(post){
 
 function showView(viewName,scrollTop=true){
   if(viewName==='home'||!CATEGORIES[viewName]){
+    topBanner.classList.remove('view-hidden');
     viewHome.classList.remove('view-hidden');
     viewCat.classList.add('view-hidden');
     setActiveNav('home');
@@ -334,6 +344,7 @@ function showView(viewName,scrollTop=true){
     return;
   }
   const cat=CATEGORIES[viewName];
+  topBanner.classList.add('view-hidden');
   viewHome.classList.add('view-hidden');
   viewCat.classList.remove('view-hidden');
   document.getElementById('cat-icon-box').innerHTML=cat.icon;
