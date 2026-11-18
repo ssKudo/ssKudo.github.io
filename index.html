@@ -147,6 +147,7 @@ footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
       <div class="term-card">
         <div class="term-bar"><span>lab — recent.log</span><span>● ● ●</span></div>
         <div class="term-body">
+          <div><span class="term-prompt">2026-11-18</span> [道具] 副主事トレ！（二級適判 演習アプリ試作）を公開</div>
           <div><span class="term-prompt">2026-11-18</span> [データ] 告示コーパスを完全マップ化・整理（896件・本文731件）</div>
           <div><span class="term-prompt">2026-11-17</span> [データ] 告示コーパスに不足分の6件を追加（706件）</div>
           <div><span class="term-prompt">2026-11-15</span> [法規×AI] 融合と学習で入口の順位を測り直した</div>
@@ -198,10 +199,11 @@ footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
         <div class="cat-num">CAT-03</div>
         <h3>道具づくり</h3>
         <p>調べものをラクにする道具を自分で作る棚。作って、実機で試して、直す。</p>
-        <p style="margin-top:8px"><span class="tag tag-tool">法令集アプリ</span> <span class="tag tag-tool">試作いろいろ</span></p>
+        <p style="margin-top:8px"><span class="tag tag-tool">法令集アプリ</span> <span class="tag tag-tool">副主事トレ！</span> <span class="tag tag-tool">試作いろいろ</span></p>
         <p>代表作：建築法令集アプリ（Android、参照リンク・委任候補・端末内検索）</p>
         <div class="card-actions">
           <button type="button" class="btn-cat-link" data-view="tool">記事を見る →</button>
+          <a class="more" href="./tools/fukushuji-tekihan-quiz/">副主事トレ！（試作）を開く ↗</a>
         </div>
       </div>
 
@@ -225,14 +227,21 @@ footer small{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-sub)}
 
     <section class="lp-section" id="projects">
       <div class="eyebrow">03 — Public Repositories</div>
-      <h2 class="sec-title">公開リポジトリ（2つ）</h2>
-      <p style="font-size:.85rem;color:var(--ink-sub);margin-bottom:16px">いま公開しているのは、この2つだけです。</p>
+      <h2 class="sec-title">公開リポジトリ・Webツール</h2>
+      <p style="font-size:.85rem;color:var(--ink-sub);margin-bottom:16px">GitHubリポジトリと、ブラウザでそのまま動かせる試作ツールを置いています。</p>
       <div class="card">
         <span class="tag tag-law">法規×AI</span>
         <h3>kenchiku-law-routing</h3>
         <p>建築系の条文検索に特化したRAG、入口ルーティング実験一式。レポート・実験28件・データを公開しています。</p>
         <p style="margin-top:8px">Zenodo DOI: <a href="https://doi.org/10.5281/zenodo.24242198" style="color:var(--accent);font-weight:700">10.5281/zenodo.24242198</a><br />ライセンス：コード MIT ／ 文書・データ CC BY 4.0</p>
         <a class="more" href="https://github.com/ssKudo/kenchiku-law-routing">https://github.com/ssKudo/kenchiku-law-routing ↗</a>
+      </div>
+      <div class="card">
+        <span class="tag tag-tool">Webツール（試作）</span>
+        <h3>副主事トレ！（二級適判 演習アプリ）</h3>
+        <p>二級建築基準適合判定資格者検定（考査A・B）向けのブラウザ演習アプリ試作版。R06・R07過去問100問＋改正15問の計115問を収録し、e-Gov 6法令XMLとのAI照合による暫定正答・根拠条文を付けています。</p>
+        <p style="margin-top:8px">動作環境：ブラウザ単体（ローカル完結・進捗保存）</p>
+        <a class="more" href="./tools/fukushuji-tekihan-quiz/">./tools/fukushuji-tekihan-quiz/ を開く ↗</a>
       </div>
       <div class="card">
         <span class="tag tag-data">法令データ</span>
