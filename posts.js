@@ -3,6 +3,26 @@
 
 window.KUDO_POSTS = [
   {
+    id: 'daijin-nintei-db',
+    category: 'tool',
+    date: '2026-11-20',
+    title: '建築基準法の大臣認定データベース＆一括チェックツール「daijin-nintei-db」を公開した',
+    summary: '国交省公開帳簿（全21区分・81,537件）をJSON/CSV化し、全区分横断検索・最新番号対応の記号デコーダ・完全ブラウザ内処理の一括スクリーニングをまとめたWebツール＆CLIを公開しました。',
+    body: `
+      <p>国土交通省が公開している「建築基準法に基づく構造方法等の認定に係る帳簿等」のPDF全42ファイルを機械可読なJSON/CSVへ構造化し、ブラウザからそのまま使える検索・記号解読・一括チェックツール「<a href="https://ssKudo.github.io/daijin-nintei-db/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">daijin-nintei-db</a>」を公開しました。</p>
+      <h4>作った背景</h4>
+      <p>他社図面や仕上表・仕様書に出てくる大臣認定番号（<code>FP060BE-xxxx</code> や <code>QF045NE-xxxx</code>、<code>SOI-xxxx</code> など）を逆引きしたり、確認申請前にコピペミスや部位取り違えを機械的に洗い出したりしようとしても、国交省の公開帳簿は区分ごとのPDFの束になっており、一括照合に使いにくい状態でした。そこで一次ソースのPDFを座標ベースで構造化し、オープンデータと実務向けチェックツールとしてまとめました。</p>
+      <h4>収録内容と主な機能</h4>
+      <p>・<strong>全21区分・81,537件の高速横断検索</strong>：平成12年4月1日〜令和5年4月30日の認定レコード（取消・失効記載986件を含む）を収録。デフォルトで全21区分を横断対象にしており、認定番号・メーカー名・構造方法名からミリ秒単位で絞り込めます。<br />・<strong>令和5年5月以降の最新番号にも対応する記号デコーダ</strong>：国交省の付番規則をもとに、帳簿に未掲載の最新認定番号であっても構造種別・耐火時間・対象部位・耐力／非耐力区分・根拠条文を決定的に分解表示します。<br />・<strong>完全ローカル処理の一括スクリーニング（Web＆Python CLI）</strong>：設計図書・仕上表・CSV・DXF等のテキストから認定番号を一括抽出し、R5.4帳簿照合・取消検知・周辺テキスト（耐火時間や耐力壁／非耐力壁の記載等）との整合性アラートを出力します。Webアプリは100%ブラウザ内で完結し、入力データが外部サーバーへ送信されることはありません。</p>
+      <h4>出典・データ基準日と免責事項</h4>
+      <p>本データセットは、「<a href="https://www.mlit.go.jp/jutakukentiku/build/jutakukentiku_house_tk_000165.html" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">建築基準法に基づく構造方法等の認定に係る帳簿等</a>」（国土交通省）を公共データ利用規約（第1.0版／PDL1.0）に基づき加工して作成した非公式プロジェクトです（国土交通省その他の公的機関が作成・監修したものではありません）。</p>
+      <p>国交省の公開帳簿PDFの基準日は<strong>令和5年（2023年）4月30日</strong>のため、令和5年5月1日以降の新規認定・変更・取消および未掲載番号の最新状況は、<a href="https://www.seinokyo.jp/ninteidb/pub/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">一般社団法人 建築性能基準推進協会（性能協）大臣認定の検索システム</a>にてご確認ください。また、認定書の別添（詳細仕様・納まり）は収録しておらず、本ツールは機械的な一次スクリーニング補助を目的としています。実際の設計・確認申請における法適合判断は、必ず建築士等の有資格者が公的検索システムおよび認定書原本に基づき最終確認してください。</p>
+      <h4>公開ページ・リポジトリ</h4>
+      <p>Webアプリ（インストール不要・ブラウザ完結）：<br /><a href="https://ssKudo.github.io/daijin-nintei-db/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">▶ daijin-nintei-db Webアプリを開く ↗</a></p>
+      <p>GitHubリポジトリ（JSON/CSVデータ・Python CLI・PDF再現スクリプト一式、コード MIT ／ データ PDL1.0）：<br /><a href="https://github.com/ssKudo/daijin-nintei-db" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">▶ https://github.com/ssKudo/daijin-nintei-db ↗</a></p>
+    `
+  },
+  {
     id: 'fukushuji-tekihan-quiz-proto',
     category: 'tool',
     date: '2026-11-18',

@@ -13,6 +13,7 @@
 
 ## 公開リポジトリ
 
+- [daijin-nintei-db](https://github.com/ssKudo/daijin-nintei-db) — 建築基準法 大臣認定データベース（全21区分・81,537件）＆検索・記号デコーダ・一括スクリーニング（[Webアプリ](https://ssKudo.github.io/daijin-nintei-db/)）
 - [kenchiku-law-routing](https://github.com/ssKudo/kenchiku-law-routing) — 建築系の条文検索に特化したRAG、入口ルーティング実験
 - [kenchiku-kokuji](https://github.com/ssKudo/kenchiku-kokuji) — 官報からの告示情報収集
 
