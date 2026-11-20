@@ -3,6 +3,33 @@
 
 window.KUDO_POSTS = [
   {
+    id: 'daijin-nintei-db-v2-review',
+    category: 'tool',
+    date: '2026-11-20',
+    title: '「daijin-nintei-db」を外部AIレビューで洗い直し、令和8年9月版（93,334件）へ全面改修した記録',
+    summary: '初版公開直後に別のAIへクロスレビューを依頼したところ、最新帳簿PDFの見落としや「未照合／未掲載」の混同など5件の指摘が判明。全面改修（v2）とWeb側の追加PR（#1）で安全側へ倒した記録。',
+    body: `
+      <p><a href="#post-daijin-nintei-db" style="color:var(--accent);font-weight:700">初版を公開</a>した直後、別のAIにリポジトリ全体をクロスレビューしてもらったところ、実務上の誤判断につながる重要な指摘が5件出てきました。あわせてWeb側の追加修正（PR #1）まで実施し、データ・ロジックともに全面改修しました。</p>
+      <h4>1. 「令和5年4月で更新停止」の誤認を訂正し、令和8年9月版へ全面更新</h4>
+      <p>初版では国交省の別ページ（<code>jutakukentiku_house_tk_000165.html</code>）のみを参照し、「令和5年4月30日で更新停止・81,537件」として公開していました。しかしレビューで親ページ（<a href="https://www.mlit.go.jp/jutakukentiku/build/jutakukentiku_house_tk_000042.html" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700"><code>jutakukentiku_house_tk_000042.html</code></a>）に<strong>令和8年（2026年）9月30日まで</strong>を対象とする最新帳簿PDFがあることが判明しました。</p>
+      <p>取得パイプラインを最新ページへ切り替えて再構築した結果、収録件数は <strong>81,537件 → 93,334件（+11,797件）</strong>、取消・失効記載レコードは <strong>1,120件</strong>（認定日 <code>2000-08-07</code>〜<code>2026-09-30</code>）となり、ドキュメント上の「更新停止」の記述もすべて訂正しています。</p>
+      <h4>2. 「未照合」と「未掲載」の厳密分離＋読込ペイロード検証</h4>
+      <p>初版では、通信エラー（HTTP 503等）でカテゴリJSONの取得に失敗した場合や、Python CLIで <code>--no-db</code> を指定した場合でも「公開帳簿 未掲載」と表示されてしまう問題がありました。そこで<strong>照合が完了して一致しなかった場合のみ「未掲載」</strong>とし、読込失敗や照合スキップ時は明確に<strong>「台帳未照合（<code>UNCHECKED</code>）」</strong>へ分離しました。</p>
+      <p>さらにWeb側の追加修正（PR #1）では、再試行時のブラウザキャッシュ残りを防ぐ <code>cache: 'reload'</code> 指定に加え、<code>manifest.json</code> と各カテゴリJSONの件数・レコード構造を全件検証してからインデックスへ反映する安全側の処理を入れ、破損データによる誤判定も塞いでいます。</p>
+      <h4>3. 実在番号の誤分類修正と最新記号の全網羅</h4>
+      <p>古い英語参考資料をもとに <code>ED</code> を「防火ダンパー」と誤分類していましたが、最新の防火設備帳簿の一次定義に従い<strong>「小規模な竪穴区画の開口部（建築基準法施行令第112条第12項）」</strong>へ訂正しました。また、近年の新規記号（<code>EH090-0001</code> 等の <code>EH***</code>・<code>EQ***</code>・<code>FPLH***</code>・<code>QPEP***</code>・<code>QFRM</code>・<code>MCMU</code>／<code>MCLT</code>／<code>MBLK</code> 等）をすべて反映し、Python・JS双方で全93,334件のデコード不一致ゼロを確認しています。</p>
+      <h4>4. 1行複数番号の文脈分割・不正枝番の誤一致防止・全角時間対応</h4>
+      <p><code>外壁 60分 QF045BE-1232 ／ 間仕切壁 45分 QF045BP-0001</code> のように1行へ複数番号が並ぶケースで、全角スラッシュ <code>／</code> で文脈が切れず警告が抜けるバグをPython・JS両方で修正し、回帰テストへ組み込みました。</p>
+      <p>さらにPR #1では、<code>QF045BE-1232-BAD</code> や <code>QF045BE-1232-9999</code> のような壊れた枝番の末尾を切り捨てて短い実在番号へ誤一致させてしまう穴を塞ぎ、全角数字の耐火時間（<code>６０分</code> 等）の検出および小数表記（<code>1.5時間</code> 等）の誤検知抑止まで反映しています。</p>
+      <h4>5. Python wheel 配布時の扱い整理</h4>
+      <p>70MB超の台帳データ本体をwheelに含めるのは過大なため、軽量な記号ルール定義（<code>bundled_code_rules.json</code>）のみをパッケージ同梱（wheel約60KB）して <code>decode</code> 単体動作を保証し、台帳検索時は外部データの取得方法と <code>--data-dir</code>／環境変数 <code>DAIJIN_NINTEI_DATA_DIR</code> の指定手順を明記しました。</p>
+      <h4>振り返り</h4>
+      <p>単一のAIと自分の確認だけで「国交省の帳簿は令和5年で止まっている」と思い込んでいた前提が、別のAIによるクロスレビューで一発で覆りました。建築実務のチェックツールでは、機能を増やす以上に「未照合を未掲載に見せない」「壊れた枝番を実在番号に丸めない」といった<strong>安全側へ倒す設計</strong>が重要だと改めて確認できた改修でした。</p>
+      <h4>公開ページ・リポジトリ</h4>
+      <p><a href="https://ssKudo.github.io/daijin-nintei-db/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">▶ daijin-nintei-db Webアプリを開く ↗</a><br /><a href="https://github.com/ssKudo/daijin-nintei-db" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">▶ GitHubリポジトリ（ssKudo/daijin-nintei-db） ↗</a></p>
+    `
+  },
+  {
     id: 'daijin-nintei-db',
     category: 'tool',
     date: '2026-11-20',
